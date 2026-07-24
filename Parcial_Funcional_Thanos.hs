@@ -20,24 +20,14 @@ import PdePreludat
 
 Punto 1: (2 puntos) Modelar Personaje, Guantelete y Universo como tipos de dato e implementar el chasquido de un universo.
 
-type Gema = String
+type Gema = String --Defino como type para no reescribir varias veces.
 
-data Guantelete = Guantelete {          --Guantelete en azul es el constructor
+data Guantelete = Guantelete {          --Guantelete en azul es el constructor , tmb podria definir type material = String y escribir material :: Material.
     material :: String,                 
-    gemas :: [Gemas]
+    gemas :: [Gema]
 }
 
-{-Otra forma combinando con type, no cambia nada.
-
-type Material = String
-
-data Guantelete = Guantelete {          
-    material :: Material,                 
-    gemas :: [Gemas]
-}
--}
-
-type Habilidad= String
+type Habilidad = String
 
 data Personaje = Personaje {
     edad :: Number, 
@@ -49,6 +39,22 @@ data Personaje = Personaje {
 
 type Universo = [Personaje]
 
+--funcion chasquido
+
+chasquido :: Guantelete -> Universo -> Universo             --nombre de funciones en minuscula.
+chasquido guantelete universo    --los parametros a usar
+    | puedeChasquear guantelete = reducirMitad universo
+    | otherwhise                = universo                  --previo al otherwise , incluyo la guarda "|"
+
+puedeChasquear :: Guantelete -> Bool
+puedeChasquear guantelete = material guantelete == "uru" && ((==6). legth . gemas) guantelete
+
+reducirMitad :: Universo -> Universo 
+reducirMitad universo = (length universo 'div' 2) universo
+
+
+--puedo acceder directo al material para compararlo.
+--Tambien podria hacerle una funcion auxiliar llamada "esta completo". Quizas esa implementacion sea reutilizable a futuro o no.
 
 
 
