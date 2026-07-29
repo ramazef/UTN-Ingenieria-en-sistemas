@@ -32,7 +32,7 @@ type Habilidad = String
 data Personaje = Personaje {
     edad :: Number, 
     energia :: Number,
-    habilidades :: [Habilidad]
+    habilidades :: [Habilidad],
     nombre :: String,
     planeta :: String
 }
@@ -44,19 +44,16 @@ type Universo = [Personaje]
 chasquido :: Guantelete -> Universo -> Universo             --nombre de funciones en minuscula.
 chasquido guantelete universo    --los parametros a usar
     | puedeChasquear guantelete = reducirMitad universo
-    | otherwhise                = universo                  --previo al otherwise , incluyo la guarda "|"
+    | otherwise                = universo                  --previo al otherwise , incluyo la guarda "|"
 
 puedeChasquear :: Guantelete -> Bool
-puedeChasquear guantelete = material guantelete == "uru" && ((==6). legth . gemas) guantelete
+puedeChasquear guantelete = material guantelete == "uru" && ((==6) . length . gemas) guantelete
 
 reducirMitad :: Universo -> Universo 
-reducirMitad universo = (length universo 'div' 2) universo
-
+reducirMitad universo =  take (length universo `div` 2) universo
 
 --puedo acceder directo al material para compararlo.
 --Tambien podria hacerle una funcion auxiliar llamada "esta completo". Quizas esa implementacion sea reutilizable a futuro o no.
-
-
 
 
 
@@ -64,16 +61,68 @@ Punto 2: (3 puntos) Resolver utilizando únicamente orden superior.
 Saber si un universo es apto para péndex, que ocurre si alguno de los personajes que lo integran tienen menos de 45 años.
 Saber la energía total de un universo que es la sumatoria de todas las energías de sus integrantes que tienen más de una habilidad.
 
+universoAptoParaPendex :: Universo -> Bool 
+universoAptoParaPendex universo = any ((<45) . edad) universo  --el universo es la lista de personajes, accedo directo a la edad.
+
+energiaTotalUniverso :: Universo -> Number 
+energiaTotalUniverso universo =  foldr ((+) . energia) 0 (filter masDeUnaHabilidad universo)
+
+masDeUnaHabilidad :: Personaje -> Bool 
+masDeUnaHabilidad personaje = ( (>1). length . habilidades) personaje  
+
+--accedo directo al personaje 
+--Cuando accedes al universo, y luego usas parentesis ya tenes acceso a los personajes y atributos.
+--si tiene mas de 2 habilidades, van a la sumatoria.
+
+--Otra forma:
+
+--EnergiaTotalUniverso :: Universo -> Number
+--energiaTotalUniverso universo = (sum . map energia) (filter masDeUnaHabilidad universo)
+
+--Si quisiera mandar por parametro la firma cambia a number - universo -number y le agrego el parametro "minimo" a la declaracion
+
+
+
+--Si quisiera saber la cantidad de habilidades de 1 solo personaje seria:
+
+--cantHabilidades :: Personaje -> Number
+--cantHabilidades personaje = length (habilidades personaje)
 
 
 Segunda parte
-A su vez, aunque el guantelete no se encuentre completo con las 6 gemas, el poseedor puede utilizar el poder del mismo contra un enemigo, es decir que puede aplicar el poder de cada gema sobre el enemigo. Las gemas del infinito fueron originalmente parte de la entidad primordial llamada Némesis, un ser todopoderoso del universo anterior quién prefirió terminar su existencia en lugar de vivir como la única conciencia en el universo. Al morir, dio paso al universo actual, y el núcleo de su ser reencarnó en las seis gemas: 
+A su vez, aunque el guantelete no se encuentre completo con las 6 gemas, el poseedor puede utilizar el poder del mismo contra 
+un enemigo, es decir que puede aplicar el poder de cada gema sobre el enemigo. 
 La mente que tiene la habilidad de debilitar la energía de un usuario en un valor dado.
 El alma puede controlar el alma de nuestro oponente permitiéndole eliminar una habilidad en particular si es que la posee. Además le quita 10 puntos de energía. 
 El espacio que permite transportar al rival al planeta x (el que usted decida) y resta 20 puntos de energía.
 El poder deja sin energía al rival y si tiene 2 habilidades o menos se las quita (en caso contrario no le saca ninguna habilidad).
 El tiempo que reduce a la mitad la edad de su oponente pero como no está permitido pelear con menores, no puede dejar la edad del oponente con menos de 18 años. Considerar la mitad entera, por ej: si el oponente tiene 50 años, le quedarán 25. Si tiene 45, le quedarán 22 (por división entera). Si tiene 30 años, le deben quedar 18 en lugar de 15. También resta 50 puntos de energía.
 La gema loca que permite manipular el poder de una gema y la ejecuta 2 veces contra un rival.
+
+type Gema :: Personaje -> Personaje 
+
+laMente :: Gema
+elAlma :: Gema 
+elEspacio :: Gema
+elPoder :: Gema
+elTiempo :: Gema 
+gemaLoca :: Gema 
+
+{ }
+
+quitarEnergia :: Number -> Gema 
+quitarEnergia valor personaje = personaje { 
+    energia = energia personaje - valor 
+}
+
+laMente = quitarEnergia 
+
+
+
+
+
+
+
 
 Punto 3: (3 puntos) Implementar las gemas del infinito, evitando lógica duplicada. 
 
