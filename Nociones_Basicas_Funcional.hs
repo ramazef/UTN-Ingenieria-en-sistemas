@@ -14,6 +14,13 @@
 
 
 
---Funciones:
+--Funciones, incluidas orden superior:
 
 --take solo toma enteros
+
+--filter devuelve una lista
+
+--El fold lo uso para que de una lista de cosas, converja a un solo valor.
+
+--Map te sirve para transformar listas, ejemplo una lista de personajes en una lista de energia y te quedas ese atributo.
+--Si combinar un SUM y MAP podes hacer la sumatoria de tal elemento dentro de la lista.
