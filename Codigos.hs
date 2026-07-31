@@ -123,3 +123,4 @@ esta elemento (x:xs) = elemento == x || esta elemento xs  --encuentra al element
 esta :: Eq a => a -> [a] -> Bool
 esta elemento lista = elem elemento lista
 
+ 
