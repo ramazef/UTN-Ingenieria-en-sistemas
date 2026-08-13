@@ -36,4 +36,4 @@ cantidadAnimales(Cantidad) :-
 % ?- cantidadAnimales(Cantidad).
 %
 % Resultado:
-% Cantidad = 3.
+% Cantidad = 3
