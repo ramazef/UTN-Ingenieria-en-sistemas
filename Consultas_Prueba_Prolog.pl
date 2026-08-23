@@ -38,6 +38,6 @@ ave(X) :- animal(X), tiene_plumas(X).
 
 pez(X) :- animal(X), vive_en_agua(X), pone_huevos(X).
 
-ovíparo(X) :- pone_huevos(X).
+oviparo(X) :- pone_huevos(X).
 
 vuela(X) :- ave(X), puede_volar(X).
