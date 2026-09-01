@@ -61,4 +61,28 @@ afortunado(Persona) :- docente(Persona).
 
 %Cuando usamos la disyuncion en logica hace que el mismo individuo pueda cumplir ambas reglas. si preguntara quien es afortunado sale tefi 2 veces
 
-%Para evitar esto uso el predicado ? distinct(afortunado(Persona).  devuelve solo una vez a tefi
+%Para evitar esto uso el predicado ? distinct(afortunado(Persona)).  devuelve solo una vez a tefi
+
+%Predicados orden simple: number, bool, string, etc.
+
+% make. recarga base de conocimientos en SWI prolog.
+
+
+%%%%%%%%%%%%%%   Predicados de orden superior.
+
+%Not: aridad 1, espera una consulta como parametro. util para definir reglas.
+
+programaEn (nahuel,javascript).
+
+not(programaEn(nahuel,haskell)).
+%devuelve true
+
+%definiendo una regla: una persona es outsider si no programa en javascript.
+
+outsider (Persona):-
+    not(programaEn(Persona, javacript)).
+
+% ?outsider(nahuel)  devuelve false.   una buena forma de verlo es como en logica, ver de adentro hacia afuera e invertir valor de verdad.
+
+%cuidado si no particularizo, la base de conocimiento sabe lo que es verdadero pero no lo falso.
+%Para que el NOT sea inversible tenemos que unificar todas las incognitas antes de evaluar el predicado not/1.
