@@ -86,3 +86,34 @@ outsider (Persona):-
 
 %cuidado si no particularizo, la base de conocimiento sabe lo que es verdadero pero no lo falso.
 %Para que el NOT sea inversible tenemos que unificar todas las incognitas antes de evaluar el predicado not/1.
+
+
+%Buscando una persona que programe en un lenguaje que el resto no.
+%La variable lenguaje tiene que ser la misma para que matchee la comparacion.
+
+personaImprescindible(Persona) :-
+    programaEn(Persona, Lenguaje),
+    not((programaEn(OtraPersona, Lenguaje),  %en mayus pq son variables
+    Persona /= OtraPersona)).                  %por backtracking en la segunda sentencia arranca en la misma Persona
+
+    %El primer predicado me sirve para encontrar las personas unificar las personas en las q puedo trabajar
+    %El 2do para verificar. el problema seria que not es de aridad 1, por lo q los parentesis deben incluir la 3ra condicion y volverse una conjuncion.
+    %Si yo comparara a la Persona con Alguien, como comparo una persona contra una incognita entonces siempre satisface y serian todos imprescindibles.
+    %En conclusion, cuando trabajamos con not hay que tener a todas las incognitas unificadas en el argumento de la consulta.
+    %not es de orden superior pq espera una consulta como parametro,
+
+
+%Hallar lenguaje mas dificil. aca no puedo hacer un recorrido con un for o algo de ese estilo.
+
+aprendizaje(javascript, 60).
+aprendizaje(haskell, 70).
+aprendizaje(scala, 100).
+aprendizaje(ruby, 50).
+
+lenguajeMasDificil(Lenguaje):-      %esta ligado a un lenguaje
+    aprendizaje(Lenguaje, Tiempo),
+    not (aprendizaje(OtroLenguaje, OtroTiempo))
+
+
+
+
