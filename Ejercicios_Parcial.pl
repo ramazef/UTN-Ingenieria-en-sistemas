@@ -97,3 +97,116 @@ lenguajeShipeadoNot(Lenguaje) :-
     not((programaEn(Persona, Lenguaje), not(leGusta(Persona, Lenguaje)))).
 
 %Como se puede apreciar, forall es bastante mas expresivo -facil de leer-. Si me queda un not-not en alguna declaracion probablemente deba aplicar un forall.
+
+
+
+%findall: aridad 3.  
+
+%findall(incognita, consulta, una incognita con la lista de individuos que satisface). devuelve una lista! no tira de a uno por backtracking.
+%Si haces findall de algo que no tenes , te devuelve una lista vacia.
+%Setof funciona similar pero te va a devolver false -tmb no muestra duplicados-.
+
+%Length aridad 2 length(lista,algo=tanto) algo=tanto es lo que va a devolver.
+
+%%%%% Agregacion. otro tema importante para el parcial:
+
+%Base de ejemplo:
+nota(pdp, vera, 9).
+nota(pdp, dauria, 8).
+nota(pdp, krasuk, 6).
+nota(pdp, goffredo, 6).
+nota(pdp, bardelli, 9).
+nota(pdp, gimenez, 2).
+nota(pdp, benitez, 2).
+nota(pdp, margiotta, 8).
+nota(sysop, dauria, 10).
+nota(sysop, krasuk, 2).
+nota(sysop, goffredo, 9).
+nota(discreta, krasuk, 3).
+nota(discreta, goffredo, 6).
+
+materia(pdp).
+materia(sysop).
+materia(discreta).
+
+
+
+%Esto es por consola, pregunta cuantos rindieron pdp.
+%?- findall(Persona, nota(pdp, Persona, _), Personas), length(Personas, Cuantas).
+%Personas = [vera, dauria, krasuk, goffredo, bardelli, gimenez, benitez, margiotta],
+%Cuantas = 8.
+
+
+%La forma practica de acordarse los parametros es "que quiero asociar" en este caso una materia a la cantidad q rindieron.
+
+cuantosRindieron(Materia, Cuantas) :-
+    findall(Persona, nota(Materia, Persona, _), Personas),
+    length(Personas, Cuantas).
+
+%Cuantas personas rindieron en general
+?- cuantosRindieron(Materia, Cuantas).
+Cuantas = 13.
+
+%Para saber cuantos rindieron x materia necesito generadores.
+
+cuantosRindieron(Materia, Cuantas) :-
+    materia(Materia),                                           %Este unico generador va a devolver x backtracking las 3 materias x separado con sus respectivos alumnos.
+    findall(Persona, nota(Materia, Persona, _), Personas),
+    length(Personas, Cuantas).
+
+cuantosAprobaron(Materia, Cuantas) :-
+    materia(Materia),                                           %Este unico generador va a devolver x backtracking las 3 materias x separado con sus respectivos alumnos.
+    findall(Persona, (nota(Materia, Persona, Nota) , Nota >=6 ), Personas),        %Controlo que mantenga la aridad !
+    length(Personas, Cuantas).
+
+
+%Medalla de honor con promedio >7
+
+
+%Sum list: 1er argumento (entra): una lista de números → [9, 8, 6]
+%          2do argumento (sale): el número con la suma → 23
+
+% "is" fuerza a evaluar una operación aritmética y unifica el resultado con lo de la izquierda.
+
+
+%agregateall tmb de aridad 3.
+
+
+%Materia amena: materia promocionada por mas de 3 personas.
+
+materiaAmena(Materia) :-
+    materia(Materia),
+    aggregate_all(count, (nota(Materia, _, Nota), Nota >= 8), CantidadPromocionadas),
+    CantidadPromocionadas > 3.
+
+%Resumen de agregate:  es la versión "todo en uno" de la agregación: hace en una sola línea lo que antes hacías con findall + operación sobre la lista. 
+%Te evita tener que armar la lista intermedia a mano.
+
+% aggregate_all(QuéCalcular, Meta, Resultado)
+
+1er arg: qué operación querés (count, sum, max, min, bag, set)          Es CLAVE entender q van como primer argumento, 
+2do arg: la meta/consulta que se va a evaluar con backtracking
+3er arg: dónde te devuelve el resultado
+
+count puntual: cuenta cuántas veces la Meta tiene éxito (cuántas soluciones encuentra por backtracking).
+
+%Aggregate count sum.
+
+
+% Materia heavy: la nota mas alta es menor a 8.
+
+materiaHeavy(Materia) :-
+    materia(Materia),
+    aggregate_all(max(Nota), nota(Materia, _, Nota), MaximaNota),
+    MaximaNota < 8.
+
+
+personasQuePromocionan(Personas) :-
+    aggregate_all(
+        set(Persona),
+        (nota(_, Persona, Nota), Nota >= 8),
+        Personas).
+
+%set te devuelve una lista ordenada y sin repetidos con todos los valores que toma la variable.
+
+
