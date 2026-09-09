@@ -26,7 +26,7 @@ gana(hernan, 80).
 
 % forall( p, q )
 % forall(predicadoQuemevaAservirParaArmarElUniverso, PredicadoQueEstableceCondicionesACumplir)
-
+% en criollo forall(deDondeSaco, laCondicion)
 
 % lenguajeCopado(Lenguaje) es cierto si:
 % - Lenguaje es un lenguaje válido (generador)
@@ -50,3 +50,50 @@ personaIdeal(Persona) :- gana(Persona, Monto),
 
 % ...o si programa bien (OR armado con 2 cláusulas separadas)
 personaIdeal(Persona) :- programaBien(Persona).
+
+% El menor de una lista es aquel que es menor o igual que todos los otros elementos: 
+% para todo elemento que no sea ése, el menor es <= que cada elemento.
+
+menor(Lista, Menor) :-
+    member(Menor, Lista),
+    forall(member(Elemento, Lista), Menor =< Elemento).
+
+menorNot(Lista, Menor) :-
+    member(Menor, Lista),
+    not((member(Elemento, Lista), Elemento < Menor)).
+
+
+%Ambas soluciones estan bien. ahora hacemos otro ejemplo donde es preferible un predicado que el otro.
+
+
+%Lenguaje shipeado: a todos los que programan en ese lenguaje les gusta.
+
+% Se que el output va a ser wollok y haskell pq a juan no le gusta programar en prolog.
+programaEn(juan, haskell).
+programaEn(juan, prolog).
+programaEn(caro, prolog).
+programaEn(valen, prolog).
+programaEn(rocio, wollok).
+programaEn(nahuel, wollok).
+programaEn(nahuel, javascript).
+programaEn(nahuel, haskell).
+
+leGusta(rocio, wollok).
+leGusta(nahuel, wollok).
+leGusta(juan, haskell).
+leGusta(nahuel, haskell).
+leGusta(caro, prolog).
+
+lenguaje(Lenguaje) :- distinct(Lenguaje, programaEn(_, Lenguaje)).
+
+
+lenguajeShipeado(Lenguaje) :-
+    lenguaje(Lenguaje),
+    forall(programaEn(Persona, Lenguaje), leGusta(Persona, Lenguaje)).
+
+
+lenguajeShipeadoNot(Lenguaje) :-
+    lenguaje(Lenguaje),
+    not((programaEn(Persona, Lenguaje), not(leGusta(Persona, Lenguaje)))).
+
+%Como se puede apreciar, forall es bastante mas expresivo -facil de leer-. Si me queda un not-not en alguna declaracion probablemente deba aplicar un forall.
