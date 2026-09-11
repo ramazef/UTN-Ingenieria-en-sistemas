@@ -210,3 +210,17 @@ personasQuePromocionan(Personas) :-
 %set te devuelve una lista ordenada y sin repetidos con todos los valores que toma la variable.
 
 
+
+
+% DECISIONES DE DISEÑO: 
+
+% Predicados individuales vs formato lista.  
+
+%Si me interesa el orden uso una lista, sino predicado simple.
+
+juega(pablo, rasti).
+juega(pablo, bloques).
+
+%vs
+
+juega(pablo, [rasti, bloques]).
