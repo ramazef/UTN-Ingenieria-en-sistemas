@@ -1,0 +1,100 @@
+
+
+Tom y Jerry
+Implementar en Wollok los objetos tom, jerry y speedy. Tom es un gato; Jerry y Speedy son ratones que le aportan energía de distintas maneras.
+
+Lo que nos interesa de Tom es manejar su energía y su velocidad, que dependen de sus actividades de comer ratones y de correr. Cada ratón será responsable de calcular la energía que aporta, según sus propias características.
+
+Los ratones
+Jerry
+Jerry comienza pesando 20 gramos y puede comer queso mediante el mensaje comerQueso(gramos). Cada vez que come, su peso aumenta en la mitad de los gramos de queso que comió.
+
+Su aporte energético, en joules, es 12 + su peso en gramos.
+
+Speedy
+Speedy pesa siempre 15 gramos y comienza descansado. Entiende los mensajes cansarse() y descansar(), que lo dejan cansado y descansado, respectivamente.
+
+Su aporte energético, en joules, depende de su estado:
+
+Si está descansado, aporta el doble de su peso en gramos.
+Si está cansado, aporta su peso en gramos.
+Un mensaje común
+Ambos ratones deben entender energiaQueAporta(), que devuelve su aporte energético en joules sin modificar su estado. Cada uno implementa su propio cálculo.
+
+Tom: comer y correr
+Tom comienza con 0 joules de energía. La persona que registra sus actividades indica el ratón que come y la cantidad de tiempo que corre en segundos.
+
+Al recibir comer(unRaton), Tom aumenta su energía en lo que aporta el ratón recibido. Para conocer ese valor, debe enviarle el mensaje energiaQueAporta(): el cálculo del aporte es responsabilidad del ratón. Tom debe poder usar a Jerry, a Speedy o a cualquier otro objeto que responda ese mensaje, sin preguntar cuál recibió ni consultar su peso o su cansancio para calcular el aporte.
+
+La velocidad de Tom, en metros por segundo, es 5 + (su energía en joules / 10).
+
+Cuando recibe correr(unosSegundos), su energía disminuye en 0.5 joules por cada metro recorrido. Observar que el consumo depende de la distancia, pero el tiempo recibido está en segundos. La velocidad que se toma es la que corresponde a la energía de Tom antes de empezar a correr, y no varía durante una carrera.
+
+¿Le conviene a Tom ir a comer un ratón?
+Lograr que tom entienda el mensaje:
+
+tom.meConvieneComerRatonA(unRaton, unaDistancia)
+Devuelve true si la energía que aporta el ratón es estrictamente mayor a la que Tom consume corriendo la distancia, que está medida en metros. Si la ganancia y el costo son iguales, no le conviene.
+
+Esta consulta también debe funcionar con cualquiera de los ratones, delegando el cálculo del aporte. Consultar no hace que Tom corra o coma, ni modifica el estado de ningún objeto
+
+
+
+object tom {
+  var energia = 0
+  const velocidadBase = 5
+  const coeficienteDeEnergiaAlCorrer = 0.5
+  const coeficienteDeEnergiaParaVelocidad = 10
+
+  method energia() = energia
+
+  method velocidad() = velocidadBase + energia / coeficienteDeEnergiaParaVelocidad
+
+  method energiaPorComer(unRaton) = unRaton.energiaQueAporta()
+
+  method energiaParaCorrer(unaDistancia) = coeficienteDeEnergiaAlCorrer * unaDistancia
+
+  method comer(unRaton) {
+    energia += self.energiaPorComer(unRaton)
+  }
+
+  method correr(unosSegundos) {
+    const distancia = self.velocidad() * unosSegundos
+    energia -= self.energiaParaCorrer(distancia)
+  }
+
+  method meConvieneComerRatonA(unRaton, unaDistancia) =
+    self.energiaPorComer(unRaton) > self.energiaParaCorrer(unaDistancia)
+}
+
+object jerry {
+  var peso = 20
+  const aporteBase = 12
+
+  method peso() = peso
+
+  method energiaQueAporta() = aporteBase + peso
+
+  method comerQueso(gramos) {
+    peso += gramos / 2
+  }
+}
+
+object speedy {
+  const peso = 15                       "pesa siempre lo mismo"
+  var descansado = true
+
+  method peso() = peso
+
+  method energiaQueAporta() = peso * self.factorEnergetico()
+
+  method factorEnergetico() = if (descansado)  2 else 1
+  
+  method cansarse() {
+    descansado = false
+  }
+
+  method descansar() {
+    descansado = true
+  }
+}

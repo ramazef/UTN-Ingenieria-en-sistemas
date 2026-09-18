@@ -1,0 +1,83 @@
+
+1 Objeto: Es algo que puedo representar a través de una idea, un concepto. Tiene entidad. 
+Por ejemplo, una fruta es algo del mundo real, que podemos conceptualizar fácilmente.
+
+nuestro modelo mental es una simplificación del objeto real. Dos personas pueden ver la misma cosa, 
+sin embargo están abstrayendo representaciones diferentes porque tienen objetivos distintos. 
+Lo que importa para el paradigma no es el objeto real, sino nuestro modelo mental.
+
+*Una deuda tambien es un objeto, no necesita ser un "objeto tangible" 
+
+ Sistema: “Un sistema es un conjunto de objetos 
+que se envían mensajes para alcanzar un determinado objetivo”
+
+2 Composicion de un objeto: Qué mensajes le puedo enviar, lo que forma la interfaz. 
+Ejemplo: el gato Félix sabe maullar, comer y dormir.
+
+
+3 Mensaje:
+¿Cómo interactúan los objetos entre sí? A través de los mensajes. ¿Cómo envío un mensaje a otro objeto? 
+
+1 primero lo tengo que conocer (más adelante veremos cómo)
+2 cuando lo conozco, sé qué mensajes le puedo mandar
+3 ¿sé cómo lo hace? no, no quiero saberlo, porque saberlo me ata a él (en términos de diseño decimos “me acopla”) 
+y si yo asumo ciertas cosas en base a cómo lo hace, eso aumenta la posibilidad de tener 
+que modificar cosas si el objeto al que le mando el mensaje cambia.
+
+
+*Entonces un sistema en este paradigma no son solo objetos, son objetos que se envían mensajes. 
+Según el principio holístico: “el todo es más que la suma de las partes”, 
+ya que el sistema no es solo sus partes sino también la interacción entre ellos
+
+
+caso testigo: pepita es un pájaro. 
+Mensajes → cosas que le puedo pedir a un objeto que haga
+-energía (¿cuál es tu energía?)
+-volá
+-comé
+-reiniciate (volvé a tu estado inicial)
+
+
+
+
+
+Diferencia mensaje vs metodo: el metodo es el codigo, como esta implementado ese mensaje. 
+depende de que lado me paro me beneficio de la abstraccion o estoy haciendo la implementacion.
+
+
+
+Metodos de consulta: devuelven algo
+Metodos que producen efectos.
+
+Es raro que un metodo haga las 2 cosas. Es buena practica mantener diferenciados esos 2 metodos.
+
+Estado de un objeto: 
+
+Tengo un objeto y varias referencias. Cuando hablamos de su estado entendemos que tiene referencias a otros objetos.
+En este paradigma todo es un objeto.
+
+*Yo busco comunicarme entre objetos pero no quiero acceder de forma directa a lo que referencian.
+Osea busco modificar el estado interno del objeto a traves de mensajes.
+
+
+WOLLOK
+
+
+
+
+*Lo primero que quiero pensar es en interfaz, quien le manda que a quien.
+
+*Gracias al polimorfismo evito hacer preguntas con type off. aca mandas el mismo mensaje a todos.
+
+Suponiendo que a la funcion tengo que mandarle una lista , y despues necesito mandarle un nombre
+una solucion sea ir subiendo la aridad y mandar ambos, pero eso hace q despues si sigo sumando cosas suba la aridad de todo
+entonces no es muy util. seria ideal mejor pasarle el alumno. trabajo con la referencia del objeto de cual depende.
+Busco el acoplamiento minimo, referenciando al alumno mantengo el mismo mensaje, mantengo la interfaz.
+
+
+si en un caso mando una lista y en otro un string , no hay polimorfismo.
+para tener polimorfismo necesito la misma firma en todos lados
+
+*agregar property a un const 
+
+*Si agregamos . es pq probablemente este acoplado
