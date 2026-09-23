@@ -38,17 +38,6 @@ Mensajes → cosas que le puedo pedir a un objeto que haga
 -reiniciate (volvé a tu estado inicial)
 
 
-
-
-
-Diferencia mensaje vs metodo: el metodo es el codigo, como esta implementado ese mensaje. 
-depende de que lado me paro me beneficio de la abstraccion o estoy haciendo la implementacion.
-
-
-
-Metodos de consulta: devuelven algo
-Metodos que producen efectos.
-
 Es raro que un metodo haga las 2 cosas. Es buena practica mantener diferenciados esos 2 metodos.
 
 Estado de un objeto: 
@@ -59,8 +48,50 @@ En este paradigma todo es un objeto.
 *Yo busco comunicarme entre objetos pero no quiero acceder de forma directa a lo que referencian.
 Osea busco modificar el estado interno del objeto a traves de mensajes.
 
+4 ambiente: donde viven los objetos. 
 
-WOLLOK
+5 referencias: Una variable apunta o referencia a un objeto. asi es como el observador se dirige al objeto observado.
+Puede haber varias referencias al mismo objeto. Para mí es pepita, para el observador es el ave, pero se trata del mismo objeto
+
+6 mensaje y metodo
+
+Cuando le envío un mensaje a un objeto, se ejecuta código. 
+¿El código dónde se escribe? En el objeto receptor del mensaje. Este código recibe el nombre de método.
+
+mensaje vs metodo:
+Mensaje es lo que el objeto emisor le envía como orden al receptor. 
+El emisor no sabe cómo se resuelve el mensaje, sólo pide que se resuelva (el qué y no el cómo, ¿a qué suena eso?). 
+El receptor recibe el mensaje y se ejecuta un método (porción de código).
+
+Diferencia mensaje vs metodo: el metodo es el codigo, como esta implementado ese mensaje. 
+depende de que lado me paro me beneficio de la abstraccion o estoy haciendo la implementacion.
+
+6.1 method lookup:
+el código a ejecutar de un mensaje se busca en un método del objeto receptor de dicho mensaje.
+
+6.2 Acciones y preguntas
+Algunos mensajes responden a preguntas:
+pepita, ¿cuál es tu energía?  ==> pepita.energia() ==> 10
+pepita, ¿sos feliz? ==> pepita.sosFeliz(ahora) ==> true
+
+Mientras que otros mensajes simplemente disparan acciones que afectan al objeto en cuestión:
+pepita, ¡volá! ==> pepita.vola(10) ==> pepita se desplaza 10 kilómetros
+
+7 Resumen
+En este primer módulo conocimos los conceptos básicos del paradigma de objetos: 
+la definición de objeto como representación de un concepto. Cada objeto define su interfaz, 
+que son los mensajes que puedo enviar y que se traducen en métodos codificados.
+
+1.1
+Mensaje y método no es sólo un juego de palabras. Me define de qué lado me pongo:
+Mensaje: soy usuario del objeto. Soy un observador que pido al objeto que haga algo (no quiero saber cómo lo resuelve, sólo quiero que lo haga).
+Método: yo soy un objeto, ejecuto código que está en mi definición, más allá de quién lo haya pedido.
+
+1.2 Interfaz e implementación
+Interfaz es lo que un objeto publica para que otro objeto lo use (es el qué).
+Implementación es lo que un objeto encapsula para definir cómo se termina resolviendo un mensaje. 
+
+
 
 
 
