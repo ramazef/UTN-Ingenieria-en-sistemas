@@ -98,3 +98,82 @@ object speedy {
     descansado = true
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Ejercicio shrek
+
+
+*Queremos sabes que misiones son las dificiles. 
+condiciones: 
+-si tienen entre 4 a 6 trolls
+-si esta a mas de 100km 
+
+data:
+
+-var vs const es importante para el desarrollador
+-*Una lista vs un set: si tengo repetidos o no , y si tengo un orden de ejecucion.
+Si no tengo repetidos y no me importa el orden uso un set.
+
+*el var sin property de los 3 trolls tira warning
+
+*Cuando pido q dos objetos entiendan el mismo mensaje estoy pidiendo que sean polimorficos (esto puede leerse en sentido inverso).
+
+
+object shrek {
+  const misiones = #{}            //me sirve para dejar una referencia a las misiones
+
+  method agregarMision(unaMision){
+    misiones.add(unaMision)
+
+  }
+
+  method misionesDificiles () = misiones.filter({mision => mision.esDificil()})
+
+  mwthod nombreDeEncargados() = misiones.map
+
+}
+
+object rescataAFiona {
+
+
+}
+
+object buscarPiedraFilosofal {
+  var property distancia = 120
+
+  method esDificil()= 
+
+}
+
+*Tienen que poder entender el mismo mensaje 
+
+*El foreach es el unico que es de accion pq te cambia el ESTADO de cada uno de los objetos.
+
+
+*Para testeo unitario como estan en un archivo .wtest necesitamos importarlos.
+
+import nombreDelArchivo   
+
+
+ctrl+shift+p  " wollok run all tests"     //la palabra clave es assert
+
+assert.equals es lo que espera
+
+assert.that espera un valor verdadero al testear
+
+*en amarillo el fail es pq corrio pero no fue lo esperado
+*en rojo cuando hay un error groso q no se entendio algun msj o dividi x 0, etc
+
+sistema triple A. arrange, a.. , assert 

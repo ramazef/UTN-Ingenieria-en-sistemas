@@ -112,3 +112,99 @@ para tener polimorfismo necesito la misma firma en todos lados
 *agregar property a un const 
 
 *Si agregamos . es pq probablemente este acoplado
+
+
+
+
+23/9 clase 2 
+
+2+3 , 2y3 objetos , + es mensaje de tipo pregunta. 2 recibe al 3 , ese es el orden.
+
+el mensaje de tipo accion modifica el estado del objeto. si es de consulta NO modifica el objeto.
+
+si fuera de accion cambiaria alguno de esos objetos
+Pero los numeros son INMUTABLES: Es decir que no puedo cambiar su estado. Los strings tambien son inmutables.
+
+si quiero concatenar 2 objetos, genera un nuevo objeto.
+
+si ees pregunta uso llave, si es accion uso llaves
+
+method cumpliranios ()[
+    edad = edad +1
+]
+
+
+fede referencia a 13 , pasa a referenciar 14 y garbage collector limpia el 13.
+
+la forma que tengo de acceder a un atributo de un objeto le mando un mensaje que me de la referencia.
+
+method edad ()= edad
+
+
+el const es para que se quede el objeto y no lo limpie el garbage collector si paso a referenciar otra cosa.
+
+f12 te muestra la definicion de las cosas , wollok esta definido en wollok, lo que dice native esta definido en typescript.
+sirve para investigar el back
+
+truncate() quita decimales ,, no redondea , ese es roundup()
+
+-no mezclar metodos de accion y de pregunta. recien en diseño.
+
+*Los lenguajes de objetos tienen esta cualidad:
+existen bloques (que tambien son objetos) [parametros -v cuerpo del bloque ]
+
+const sig= [numero -v numero+1 ]
+sig va a referenciar a ese bloque
+
+sig.apply(3)
+4
+
+const suma = [numero, otro -v numero+otro]
+v suma.apply(2,3)
+5
+
+-hasta que no le mandas el mensaje apply no pasa nada , pq es de pregunta.
+
+tenes que respetar la aridad del bloque, 
+
+como alternativa podemos currificar y hacer aplicacion parcial.
+osea la estamos forzando la aplicacion parcial, vas trabajando sobre el bloque.
+
+ej en javascript no tenes aplicacion parcial, entonces aplicando este concepto lo podes hacer andar, tiene utilidad
+sirvio la currificacion. es para arreglar cosas al vuelo.
+
+
+*Colecciones: 
+
+Una lista es un objeto que referencia a mas objetos. Si se repite un numero va a tener 2 referencias
+
+[1,2,3,1,5] el objeto 1 va a tener las referencias 0 y 3. (recordar que arranca contando desde 0)
+
+como es una lista podria preguntar por head/first, last o el size, tambien un sum
+
+
+es de aridad 1 pq ya le estoy mandando la lista, no es como funcional q era de aridad 2. tiene q ser de pregunta filter. genera nueva lista
+lista.filter(bloque)
+
+dato: si recibe 1 solo bloque puedo no usar parentesis 
+
+-esa nueva lista es otro objeto pèro que entiende los mismos mensajes y es del mismo tipo.
+-por lo general para hacer estas operaciones vamos a usar bloques.
+
+*En este lenguaje tenemos map. tambien es de consulta, al igual que filer,any,all 
+el map te devuelve cualquier cosa. 
+
+usar foreach pierde declaratividad si la uso para operar lista -baja nota.
+
+uso foreach SOLO cuando quiero modificar el estado de los objetos.
+va objeto x objeto alterando el estado de la coleccion.
+
+*set no admite repetidos, si tengo 2 referencias a un mismo numero en una lista, devuelve solo 1 y no 2.
+tampoco tiene un orden.
+
+
+
+property
+
+getter
+
